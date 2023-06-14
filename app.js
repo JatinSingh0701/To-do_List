@@ -13,10 +13,15 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect(`mongodb+srv://jatinsinghdemod:${process.env.MONGODB_PASSWORD}@adminuser.ncfysj8.mongodb.net/todolistDB`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://jatinsinghdemod:" + process.env.MONGODB_PASSWORD + "@adminuser.ncfysj8.mongodb.net/todolistDB",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 30000, // Increased timeout to 30 seconds
+  }
+);
+
 
 
 const itemsSchema = new mongoose.Schema({
