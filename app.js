@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -12,10 +13,11 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://127.0.0.1/todolistDB", {
+mongoose.connect(`mongodb+srv://jatinsinghdemod:${process.env.MONGODB_PASSWORD}@adminuser.ncfysj8.mongodb.net/todolistDB`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 
 const itemsSchema = new mongoose.Schema({
   name: String,
@@ -31,7 +33,7 @@ const defaultItems = [
     name: "Hit the + button to add a new item.",
   },
   {
-    name: "<-- Hit this to delete an item.",  
+    name: "<-- Hit this to delete an item.",
   },
 ];
 
