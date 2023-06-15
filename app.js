@@ -7,20 +7,23 @@ const date = require(path.join(__dirname, "/date.js"));
 const mongoose = require("mongoose");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect(
-  "mongodb+srv://jatinsinghdemod:" + process.env.MONGODB_PASSWORD + "@adminuser.ncfysj8.mongodb.net/todolistDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    connectTimeoutMS: 30000, // Increased timeout to 30 seconds
+mongoose.set('strictQuery', false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
   }
-);
+}
 
 
 
@@ -143,6 +146,9 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(3000, function () {
-  console.log("Server started on port 3000");
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
 });
+
