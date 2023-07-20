@@ -1,6 +1,6 @@
-# Todolist-v1
+# Todolist
 
-Todolist-v1 is a simple web-based to-do list application that allows you to manage your tasks. You can add new items, mark completed tasks, and delete items from the list.
+Todolist is a simple web-based to-do list application that allows you to manage your tasks. You can add new items, mark completed tasks, and delete items from the list.
 
 ## Installation
 
